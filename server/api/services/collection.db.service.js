@@ -1,30 +1,26 @@
+import pool from '../../common/database/config';
+
 class CollectionDatabase {
-  constructor() {
-    this._data = [];
-    this._counter = 0;
 
-    this.insert('example 0');
-    this.insert('example 1');
+  findAll() {
+    pool.query('SELECT * FROM collection', (error, result) => {
+      if (error) throw error;
+      return Promise.resolve(result);
+    });
   }
 
-  all() {
-    return Promise.resolve(this._data);
+  findBy(id) {
+    pool.query('SELECT * FROM collection WHERE ?', id, (error, result) => {
+      if (error) throw error;
+      return Promise.resolve(result);
+    });
   }
 
-  byId(id) {
-    return Promise.resolve(this._data[id]);
-  }
-
-  insert(name) {
-    const record = {
-      id: this._counter,
-      name,
-    };
-
-    this._counter += 1;
-    this._data.push(record);
-
-    return Promise.resolve(record);
+  create(collection) {
+    pool.query('INSERT INTO collection SET ?', collection, (error, result) => {
+      if (error) throw error;
+      return Promise.resolve(result.insertId);
+    });
   }
 }
 
