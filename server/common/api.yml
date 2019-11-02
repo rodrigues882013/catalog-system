@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   version: 1.0.0
   title: catalog-system
-  description: My cool app
+  description: Catalog System App
 basePath: /api/v1
 tags:
   - name: Collections
@@ -64,4 +64,3 @@ paths:
           description: Return the collection with the specified id
         404:
           description: Collection not found
-

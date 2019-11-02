@@ -2,20 +2,20 @@ import log from '../../common/logger';
 import db from './collection.db.service';
 
 class CollectionService {
-
-  static findAll() {
+  findAll() {
     log.info(`${this.constructor.name}.all()`);
     return db.findAll();
   }
 
-  static findById(id) {
+  findById(id) {
     log.info(`${this.constructor.name}.byId(${id})`);
     return db.findBy(id);
   }
 
-  static create(collection) {
+  create(collection) {
+    log.info('Creating collection');
     return db.create(collection);
   }
 }
 
-export default CollectionService;
+export default new CollectionService();

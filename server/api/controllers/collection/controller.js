@@ -1,13 +1,13 @@
-import collectionService from '../../services/collection.service';
+import CollectionService from '../../services/collection.service';
 
-export default class CollectionController {
-  static findAll(req, res) {
-    collectionService.findAll()()
+export class CollectionController {
+  findAll(req, res) {
+    CollectionService.findAll()()
       .then(r => res.json(r));
   }
 
-  static findById(req, res) {
-    collectionService
+  findById(req, res) {
+    CollectionService
       .findById(req.params.id)
       .then(r => {
         if (r) res.json(r);
@@ -15,8 +15,8 @@ export default class CollectionController {
       });
   }
 
-  static create(req, res) {
-    collectionService
+  create(req, res) {
+    CollectionService
       .create(req)
       .then(r => res
         .status(201)
@@ -24,3 +24,5 @@ export default class CollectionController {
         .json(r));
   }
 }
+
+export default new CollectionController();

@@ -1,4 +1,4 @@
-import pool from '../../common/database/config';
+import pool from '../middlewares/database/config';
 
 class CollectionDatabase {
 
