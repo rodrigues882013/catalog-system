@@ -1,0 +1,139 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: catalog-system
+  description: Catalog System App
+basePath: /api/v1
+tags:
+  - name: Collections
+    description: Collection endpoints
+  - name: Discs
+    description: Dics endpoints
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+
+definitions:
+  CollectionBody:
+    type: object
+    title: collections
+    required:
+      - title
+      - description
+    properties:
+      title:
+        type: string
+        example: title
+      description:
+        type: string
+        example: description
+
+  DiscBody:
+    type: object
+    title: collections
+    required:
+      - title
+      - description
+    properties:
+      title:
+        type: string
+        example: title
+      description:
+        type: string
+        example: description
+
+paths:
+  /collections:
+    get:
+      tags:
+        - Collections
+      description: Fetch all collection
+      responses:
+        200:
+          description: Returns all collection
+    post:
+      tags:
+        - Collections
+      description: Create a new collection
+      parameters:
+        - title: collection
+          in: body
+          description: an collection
+          required: true
+          schema:
+            $ref: "#/definitions/CollectionBody"
+      responses:
+        200:
+          description: Returns all collection
+
+  /collections/{id}:
+    get:
+      tags:
+        - Collections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the collection to retrieve
+          type: integer
+      responses:
+        200:
+          description: Return the collection with the specified id
+        404:
+          description: Collection not found
+
+  /discs:
+    get:
+      tags:
+        - Discs
+      parameters:
+        - title: collectionId
+          name: collectionId
+          in: path
+          schema:
+            type: integer
+            required: false
+
+        - title: text
+          name: text
+          in: path
+          schema:
+            type: string
+            required: false
+      description: Fetch all discs or filter them acording with parameter given
+      responses:
+        200:
+          description: Returns all discs
+    post:
+      tags:
+        - Discs
+      description: Create a new disc
+      parameters:
+        - title: disc
+          in: body
+          description: an disc
+          required: true
+          schema:
+            $ref: "#/definitions/DiscBody"
+      responses:
+        200:
+          description: Returns all discs
+
+  /discs/{id}:
+    get:
+      tags:
+        - Discs
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the discs to retrieve
+          type: integer
+      responses:
+        200:
+          description: Return the discs with the specified id
+        404:
+          description: Discs not found

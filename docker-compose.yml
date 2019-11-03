@@ -1,19 +1,16 @@
 version: '3.3'
 services:
   db:
-    image: mysql:5.7
+    container_name: mysql
+    image: mysqldb
+    build: ./databases
     restart: always
     environment:
-      MYSQL_DATABASE: 'db'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=test
     ports:
       - '3306:3306'
     expose:
       - '3306'
-    volumes:
-      - my-db:/var/lib/mysql
-
-volumes:
-  my-db:
