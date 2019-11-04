@@ -1,23 +1,18 @@
 import Service from '../../services/disc.service';
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 
 export class DiscController {
-  findAll(req: Request, res: Response): void {
-    Service.findAll({text: req.query.text, collectionId: req.query.collectionId}).then(r => res.json(r));
+  findAll(req: Request, res: Response) {
+    Service.findAll({text: req.query.text, collectionId: req.query.collectionId}, res);
   }
 
   findById(req: Request, res: Response): void {
     const id = Number.parseInt(req.params['id']);
-    Service.findById(id).then(r => res.json(r));
+    Service.findById(id, res);
   }
 
   create(req: Request, res: Response): void {
-    Service.create(req.body).then(r =>
-      res
-        .status(201)
-        .location(`/api/v1/discs/${r.id}`)
-        .json(r),
-    );
+    Service.create(req.body, res)
   }
 
   update(req: Request, res: Response): void {

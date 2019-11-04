@@ -1,31 +1,13 @@
 import log from '../../../common/logger';
-import * as mysql from "mysql2";
+import * as mysql from "mysql2/promise";
 
 const config = {
-  host: '192.168.99.100',
-  user: 'user',
-  password: 'password',
-  database: 'db',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PWD,
+  database: process.env.DB_DATABASE,
 };
 
 // Create a MySQL pool
 const pool = mysql.createPool(config);
-
-pool.getConnection((err, connection) => {
-  if (err) {
-    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      log.error('Database connection was closed.');
-    }
-    if (err.code === 'ER_CON_COUNT_ERROR') {
-      log.error('Database has too many connections.');
-    }
-    if (err.code === 'ECONNREFUSED') {
-      log.error('Database connection was refused.');
-    }
-  }
-  if (connection) {
-    connection.release();
-  }
-});
-
 export default pool;
