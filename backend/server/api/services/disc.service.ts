@@ -7,15 +7,14 @@ import {HttpCode} from "../models/http.code";
 
 class DiscService {
   findAll(parameter=null, response) {
-    log.info(`${this.constructor.name}.all()`);
 
     let result = null;
 
     if (parameter.text && parameter.collectionId)
       result = db.findAll();
-    if (parameter.text)
+    else if (parameter.text)
       result = db.findDiscsByText(parameter.text);
-    if (parameter.collectionId)
+    else if (parameter.collectionId)
       result = db.findDiscsByCollectionId(parameter.collectionId);
     else
       result = db.findAll();

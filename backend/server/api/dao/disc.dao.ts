@@ -111,7 +111,8 @@ export class DiscDAO implements IOperation<Disc> {
         const [rows]: [Disc[]] = await pool
             .getConnection()
             .then(conn => {
-                const res = conn.execute('SELECT d.id disc_id, d.title disc_title, d.text disc_text, d.collection_id collection_id, c.title collection_title, c.description collection_description FROM `pb`.`disc` d INNER JOIN `pb`.`collection` c ON d.collection_id = c.id WHERE d.disc_text LIKE %?%', [text]);
+                const pttr = `%${text}%`;
+                const res = conn.execute('SELECT d.id disc_id, d.title disc_title, d.text disc_text, d.collection_id collection_id, c.title collection_title, c.description collection_description FROM `pb`.`disc` d INNER JOIN `pb`.`collection` c ON d.collection_id = c.id WHERE d.text LIKE ?', [pttr]);
                 conn.release();
                 return res;
             })
