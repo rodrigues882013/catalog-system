@@ -1,5 +1,6 @@
 import express from 'express';
-import controller from './disc.controller'
+import controller from './disc.controller';
+
 export default express.Router()
     .post('/', controller.create)
     .put('/:id', controller.update)

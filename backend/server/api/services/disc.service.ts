@@ -1,7 +1,9 @@
 import log from '../../common/logger';
 import db from '../dao/disc.dao';
 import Disc from '../models/disc';
-import Collection from "../models/collection";
+import {Utils} from "./utils";
+import errorHandler from "../middlewares/error.handler";
+import {HttpCode} from "../models/http.code";
 
 class DiscService {
   findAll(parameter=null, response) {
@@ -18,51 +20,49 @@ class DiscService {
     else
       result = db.findAll();
 
-    result.then( res => response.json(res.map(x => this.toDiscEntity(x))));
+    result
+        .then( res => response.status(HttpCode.OK).json(res.map(x => Utils.toDiscEntity(x))))
+        .catch(err => errorHandler(err, response));
   }
 
   findById(id, response) {
     log.info(`${this.constructor.name}.byId(${id})`);
-    const result = db.findById(id);
-    result.then(res => response.json(this.toDiscEntity(res)));
+    db.findById(id)
+        .then(res => response.status(HttpCode.OK).json(Utils.toDiscEntity(res)))
+        .catch(err => errorHandler(err, response));
   }
 
   create(disc: Disc, response) {
-    log.info('Creating collection');
-    const result = db.create(disc);
-    result.then( res => {
-      response
-          .status(201)
-          .location(`/api/v1/discs/${res.id}`)
-          .json(res)
-    })
+    log.info('Creating disc');
+    db.create(disc)
+        .then( res => {
+          disc.id = res.insertedId;
+          response.status(HttpCode.Created).json(disc)
+          log.info('Disc created.');
+        })
+        .catch(err => errorHandler(err, response))
 
   }
 
-
-  update(id: number, disc: Disc): Promise<Disc> {
-    return db.update(id, disc);
+  update(id: number, disc: Disc, response) {
+    log.info('Updating disc');
+    db.update(id, disc)
+        .then( res => {
+          disc.id = id;
+          response.status(HttpCode.OK).json(disc);
+          log.info('Disc updated.');
+        })
+        .catch(err => errorHandler(err, response))
   }
 
-  delete(id: number): Promise<void> {
-    return db.delete(id);
-  }
-
-  private toDiscEntity(res): Disc {
-
-    const collection: Collection = {
-      id: res.collection_id,
-      title: res.collection_title,
-      description: res.collection_description,
-      discs: null
-    };
-
-    return {
-      id: res.disc_id,
-      title: res.disc_title,
-      text: res.disc_text,
-      collection: collection
-    };
+  delete(id: number, response) {
+    log.info(`Deleting disc with id: ${id}`);
+    db.delete(id)
+        .then( () => {
+          log.info('Deleted with success');
+          response.status(HttpCode.NoContent).json({'message': 'Entity was deleted with success'})
+        })
+        .catch(err => errorHandler(err, response));
   }
 }
 

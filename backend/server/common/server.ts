@@ -1,13 +1,10 @@
-import express from 'express';
-import { Application } from 'express';
+import express, {Application} from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import http from 'http';
 import os from 'os';
 import cookieParser from 'cookie-parser';
-
-  import installValidator from './swagger';
-
+import installValidator from './swagger';
 import l from './logger';
 
 const app = express();

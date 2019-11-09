@@ -24,6 +24,9 @@ definitions:
       - title
       - description
     properties:
+      id:
+        type: integer
+        example: 0
       title:
         type: string
         example: title
@@ -36,14 +39,21 @@ definitions:
     title: collections
     required:
       - title
-      - description
+      - text
+      - collection
     properties:
+      id:
+        type: integer
+        example: 0
       title:
         type: string
         example: title
-      description:
+      text:
         type: string
-        example: description
+        example: text
+      collection:
+        $ref: "#/definitions/CollectionBody"
+        type: object
 
 paths:
   /collections:
@@ -121,8 +131,24 @@ paths:
       responses:
         200:
           description: Returns all discs
-
   /discs/{id}:
+    put:
+      tags:
+        - Discs
+      description: Create a new disc
+      parameters:
+        - name: id
+          in: path
+          required: true
+        - title: disc
+          in: body
+          description: an disc
+          required: true
+          schema:
+            $ref: "#/definitions/DiscBody"
+      responses:
+        200:
+          description: Returns all discs
     get:
       tags:
         - Discs
@@ -137,3 +163,18 @@ paths:
           description: Return the discs with the specified id
         404:
           description: Discs not found
+
+    delete:
+      tags:
+        - Discs
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the disc to delete
+          type: integer
+      responses:
+        204:
+          description: Return no content if action was performed with success
+        404:
+          description: Disc not found

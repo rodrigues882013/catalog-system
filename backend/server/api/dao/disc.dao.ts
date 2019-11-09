@@ -5,25 +5,46 @@ import log from "../../common/logger";
 
 export class DiscDAO implements IOperation<Disc> {
 
-    public async create(elem: Disc): Promise<Disc> {
-
-        const [rows]: [Disc[]] = await pool
+    public async create(elem: Disc): Promise<any> {
+        return await pool
             .getConnection()
             .then(conn => {
-                const res = conn.execute('INSERT INTO `pd`.`disc` (title, description, collection_id) VALUE (?, ?, ?)',
-                    [elem.title, elem.text, elem.collection.id]);
-                conn.release();
+                let res;
+                try {
+                    conn.beginTransaction();
+                    res = conn.execute('INSERT INTO `pb`.`disc` (title, text, collection_id) VALUE (?, ?, ?)',
+                        [elem.title, elem.text, elem.collection.id]);
+                    conn.commit();
+
+                } catch (e) {
+                    conn.rollback();
+                } finally {
+                    conn.release();
+                }
                 return res;
             })
-            .catch( err => log.error(err));
-
-
-        return rows[0];
+            .catch(err => log.error(err));
     }
 
-    public async delete(id: number): Promise<void> {
-        const [rows] =  await pool.execute('DELETE FROM `pd`.`disc` WHERE id=?', [id]);
-        return rows[0];
+    public async delete(id: number): Promise<any> {
+        return await pool
+            .getConnection()
+            .then(conn => {
+                let res;
+                try {
+                    conn.beginTransaction();
+                    res = conn.execute('DELETE FROM `pb`.`disc` WHERE id=?', [id]);
+                    conn.commit();
+                } catch (e) {
+                    conn.rollback();
+
+                } finally {
+                    conn.release();
+                }
+
+                return res;
+            })
+            .catch(err => log.error(err));
     }
 
     public async findAll(): Promise<Disc[]> {
@@ -50,9 +71,27 @@ export class DiscDAO implements IOperation<Disc> {
         return rows[0]
     }
 
-    public async update(id: number, elem: Disc): Promise<Disc> {
-        return pool.execute('UPDATE `pd`.`disc` SET title=?, description=?',
-            [elem.title, elem.text]);
+    public async update(id: number, elem: Disc): Promise<any> {
+
+        return await pool
+            .getConnection()
+            .then(conn => {
+                let res;
+                try {
+                    conn.beginTransaction();
+                    res = conn.execute('UPDATE `pb`.`disc` SET title=?, text=?, collection_id=? WHERE id=?',
+                        [elem.title, elem.text, elem.collection.id, id]);
+                    conn.commit();
+                } catch (e) {
+                    conn.rollback();
+                } finally {
+                    conn.release();
+                }
+
+                return res;
+
+            })
+            .catch(err => log.error(err));
     }
 
     public async findDiscsByCollectionId(collectionId: number): Promise<Disc[]> {

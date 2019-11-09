@@ -20,12 +20,10 @@ CREATE TABLE IF NOT EXISTS `pb`.`disc` (
 );
 
 CREATE UNIQUE INDEX idx_disc_id ON disc(id);
-CREATE UNIQUE INDEX idx_disc_collection_id ON disc(collection_id);
+CREATE INDEX idx_disc_collection_id ON disc(collection_id);
 
 CREATE USER 'app'@'192.168.99.100' IDENTIFIED BY 'root';
 CREATE USER 'app'@'localhost' IDENTIFIED BY 'root';
 
-GRANT ALL ON `pb`.* TO 'app'@'192.168.99.100';
-GRANT ALL ON `pb`.* TO 'app'@'localhost';
-
+GRANT SELECT, INSERT, DELETE, UPDATE ON `pb`.* TO 'app'@'%';
 

@@ -17,17 +17,12 @@ export class DiscController {
 
   update(req: Request, res: Response): void {
     const id = Number.parseInt(req.params['id']);
-    Service.update(id, req.body).then(r =>
-      res
-        .status(200)
-        .location(`/api/v1/discs/${r.id}`)
-        .json(r),
-    );
+    Service.update(id, req.body, res);
   }
 
   delete(req: Request, res: Response): void {
     const id = Number.parseInt(req.params['id']);
-    Service.delete(id).then(r => res.json(r));
+    Service.delete(id, res);
   }
 }
 
