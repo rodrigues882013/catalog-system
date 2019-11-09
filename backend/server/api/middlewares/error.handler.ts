@@ -1,13 +1,19 @@
 import {Response} from 'express';
 import log from "../../common/logger";
 import ErrorResponse from '../models/error.response';
+import {HttpCode} from "../models/http.code";
 
 export default function errorHandler(err, res: Response) {
-  log.error(err);
-  res.status(err.status || 500);
+  if (err === null)
+    res.status(HttpCode.NotFound);
+
+  else {
+    log.error(err);
+    res.status(err.status || 500);
+  }
 
   const errorMessage: ErrorResponse = {
-    message: handleMessages(err.message)
+    message: handleMessages(err ? err.status : HttpCode.NotFound)
   };
 
   res.json(errorMessage);

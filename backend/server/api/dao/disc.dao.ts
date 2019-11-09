@@ -120,6 +120,19 @@ export class DiscDAO implements IOperation<Disc> {
         return rows
     }
 
+    public async findByTextAndCollectionId(text: string, collectionId: number): Promise<Disc[]> {
+        const [rows]: [Disc[]] = await pool
+            .getConnection()
+            .then(conn => {
+                const pttr = `%${text}%`;
+                const res = conn.execute('SELECT d.id disc_id, d.title disc_title, d.text disc_text, d.collection_id collection_id, c.title collection_title, c.description collection_description FROM `pb`.`disc` d INNER JOIN `pb`.`collection` c ON d.collection_id = c.id WHERE d.collection_id=? AND d.text LIKE ?', [collectionId, pttr]);
+                conn.release();
+                return res;
+            })
+            .catch( err => log.error(err));
+        return rows
+    }
+
 }
 
 export default new DiscDAO();

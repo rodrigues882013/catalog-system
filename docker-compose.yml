@@ -14,3 +14,12 @@ services:
       - '3306:3306'
     expose:
       - '3306'
+
+  redis:
+    hostname: redis
+    image: redis:alpine
+    volumes:
+      - /data/db/redis
+    ports:
+      - "6379:6379"
+

@@ -5,7 +5,7 @@ import Disc from "../models/disc";
 import log from "../../common/logger";
 
 export class CollectionDAO implements IOperation<Collection> {
-  public async create(elem: Collection): Promise<any> {
+    public async create(elem: Collection): Promise<any> {
         return await pool
             .getConnection()
             .then(conn => {
@@ -26,11 +26,11 @@ export class CollectionDAO implements IOperation<Collection> {
             .catch(err => log.error(err));
     }
 
-  delete(id: number): Promise<any> {
-    return undefined;
-  }
+    delete(id: number): Promise<any> {
+        return undefined;
+    }
 
-  public async findAll(): Promise<Collection[]> {
+    public async findAll(): Promise<Collection[]> {
         const [rows]: [Collection[]] = await pool
             .getConnection()
             .then(conn => {
@@ -54,9 +54,9 @@ export class CollectionDAO implements IOperation<Collection> {
         return rows[0]
     }
 
-  update(id: number, elem: Collection): Promise<any> {
-    return undefined;
-  }
+    update(id: number, elem: Collection): Promise<any> {
+        return undefined;
+    }
 }
 
 export default new CollectionDAO();
