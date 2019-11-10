@@ -127,6 +127,7 @@ class DiscService {
                 log.info('Deleted with success');
                 response.status(HttpCode.NoContent).json({'message': 'Entity was deleted with success'})
                 redis.del(cacheKey)
+                redis.del('Disc#findAll')
             })
             .catch(err => errorHandler(err, response));
     }
