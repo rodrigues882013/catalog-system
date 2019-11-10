@@ -1,7 +1,5 @@
 import constants from "../helpers/constants";
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 const _list = () => {
   return fetch (`${constants.API}/collections`, {
     method: 'GET',
@@ -12,8 +10,6 @@ const _list = () => {
   })
 };
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 function _get(id){
   return fetch (`${constants.API}/collections/${id}`, {
     method: 'GET',
@@ -23,8 +19,6 @@ function _get(id){
     }
   })
 }
-
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 const _create = (collection) => {
   return fetch (`${constants.API}/collections`, {
@@ -37,10 +31,20 @@ const _create = (collection) => {
   });
 };
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+const _update = (id, collection) => {
+  return fetch (`${constants.API}/collections/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(collection)
+  });
+};
 
 export default {
   list: _list,
   get: _get,
-  create: _create
+  create: _create,
+  update: _update
 };

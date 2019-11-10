@@ -11,8 +11,6 @@ const _list = () => {
   })
 };
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 const _get = (id) => {
   return fetch (`${constants.API}/discs/${id}`, {
     method: 'GET',
@@ -22,8 +20,6 @@ const _get = (id) => {
     }
   })
 };
-
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 const _create = (disc) => {
   return fetch (`${constants.API}/discs`, {
@@ -36,8 +32,6 @@ const _create = (disc) => {
   });
 };
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 const _update = (id, disc) => {
   return fetch (`${constants.API}/discs/${id}`, {
     method: 'PUT',
@@ -49,18 +43,14 @@ const _update = (id, disc) => {
   });
 };
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 const _delete = (id) => {
   return fetch (`${constants.API}/discs/${id}`, {
     method: 'DELETE'
   });
 };
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 const _search = (parameters) => {
-  return fetch (`${constants.API}/discs/${parameters}`, {
+  return fetch (`${constants.API}/discs${parameters}`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -68,8 +58,6 @@ const _search = (parameters) => {
     }
   });
 };
-
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 export default {
   list: _list,

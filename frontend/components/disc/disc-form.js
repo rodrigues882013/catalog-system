@@ -1,13 +1,11 @@
-
 import React from 'react';
-import PropTypes from 'prop-types';
 import TextInput from '../commons/text-input';
 import SelectInput from '../commons/select-input';
+import {NavLink} from "react-router-dom";
 
 const DiscForm = ({disc, collections, errors, onSave, onChange}) => {
     return (
         <form>
-
           <div className="">
             <TextInput
               id="txtTitle"
@@ -35,8 +33,9 @@ const DiscForm = ({disc, collections, errors, onSave, onChange}) => {
             dataSource={collections}
             selected={disc.collection}
             onChange={onChange}/>
-         
-          <button type="submit" onClick={onSave} className="">Save</button>
+          <button type="submit" onClick={onSave} className="button">Save</button>
+          <NavLink to="/discs" className="button m-l"> Back </NavLink>
+
         </form>
       );
 };

@@ -1,14 +1,12 @@
-import React, {Component} from 'react';
-import {PropTypes} from 'prop-types';
-import $ from 'jquery';
-import 'select2';      
+import React from 'react';
+import 'select2';
 import _ from 'lodash';
 import 'select2/dist/css/select2.css';
 
 
 const SelectInput = ({id, dataSource, selected, element, label, error, onChange}) => {
 
-  let elements = _.map(dataSource, x => <option key={x.id} value={x.id}>{x.name}</option>);
+  let elements = _.map(dataSource, x => <option key={x.id} value={x.id}>{x.title}</option>);
   let value = (selected !== undefined) ? selected.id : _.first(dataSource).id;
 
   return (
@@ -23,7 +21,6 @@ const SelectInput = ({id, dataSource, selected, element, label, error, onChange}
         {elements}
       </select>
       {error && <div className="alert alert-danger">{error}</div>}
-
     </div>
   );
 };

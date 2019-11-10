@@ -25,37 +25,37 @@ services:
     expose:
       - 6379
 
-  backend:
-    hostname: backend
-    build: ./backend
-    image: backend
-    ports:
-      - 3000:3000
-    depends_on:
-      - db
-      - redis
-    links:
-      - redis:redis
-      - db:db
-
-  frontend:
-    hostname: frontend
-    build: ./frontend
-    image: frontend
-    ports:
-      - 3001:3001
-    depends_on:
-      - backend
-    links:
-      - backend:backend
-
-  nginx:
-    hostname: nginx
-    build: ./nginx
-    image: nginx:develop
-    ports:
-      - 80:80
-    links:
-      - backend
-      - frontend
+#  backend:
+#    hostname: backend
+#    build: ./backend
+#    image: backend
+#    ports:
+#      - 3000:3000
+#    depends_on:
+#      - db
+#      - redis
+#    links:
+#      - redis:redis
+#      - db:db
+#
+#  frontend:
+#    hostname: frontend
+#    build: ./frontend
+#    image: frontend
+#    ports:
+#      - 3001:3001
+#    depends_on:
+#      - backend
+#    links:
+#      - backend:backend
+#
+#  nginx:
+#    hostname: nginx
+#    build: ./nginx
+#    image: nginx:develop
+#    ports:
+#      - 80:80
+#    links:
+#      - backend
+#      - frontend
 

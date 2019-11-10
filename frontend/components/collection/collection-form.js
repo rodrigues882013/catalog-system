@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../commons/text-input';
+import {NavLink} from "react-router-dom";
 
 const CollectionForm = ({collection, formName, errors, onSave, onChange}) => {
   return (
@@ -25,7 +26,8 @@ const CollectionForm = ({collection, formName, errors, onSave, onChange}) => {
           error={errors['description']}
           onChange={onChange}/>
       </div>
-      <button type="submit" onClick={onSave} className="">Save</button>
+      <button type="submit" onClick={onSave} className="button"> Save </button>
+      <NavLink to="/collections" className="button m-l"> Back </NavLink>
     </form>
   );
 };

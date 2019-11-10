@@ -10,31 +10,26 @@ const CollectionItem = ({collection}) => {
       <td>{collection.title}</td>
       <td>{collection.description}</td>
       <td>
-        <NavLink to={`/collections/${collection.id}`} className=""><i className=""/></NavLink>
+        <NavLink to={`/collections/${collection.id}`} className="button"> Detail <i className=""/></NavLink>
+        <NavLink to={`/collections/${collection.id}/discs`} className="button m-l"> List discs <i className=""/></NavLink>
       </td>
     </tr>
   );
 };
 
 const CollectionsList = ({collections, hideButtonNew}) => {
-  console.log(collections);
   const items = collections.map( cl => <CollectionItem key={cl.id} collection={cl} />);
 
   return (
-    <div className="col-sm-12 col-md-12 col-xs-12">
-      <table className="table table-striped">
-        <thead>
-        <tr>
-          <th>Id</th>
-          <th>Title</th>
-          <th>Description</th>
-        </tr>
-        </thead>
-        <tbody>
-        {items}
-        </tbody>
-      </table>
-    </div>
+    <table className="items">
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+      {items}
+    </table>
   );
 };
 

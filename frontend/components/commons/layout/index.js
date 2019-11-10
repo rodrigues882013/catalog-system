@@ -20,7 +20,7 @@ class Layout extends Component {
     return (
       <div>
         <Navbar />
-        <div className="container flex">
+        <div className="flex-container">
           <div className="item">
             {/*<Sidebar />*/}
             {this.props.children}
