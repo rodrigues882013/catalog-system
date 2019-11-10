@@ -1,0 +1,52 @@
+
+
+export default {
+  LOAD: {
+    COLLECTION: {
+      SUCCESS: 'LOAD_COLLECTION_SUCCESS',
+    },
+    COLLECTIONS: {
+      SUCCESS: 'LOAD_COLLECTIONS_SUCCESS',
+    },
+    DISC: {
+      SUCCESS: 'LOAD_DISC_SUCCESS'
+    },
+    DISCS: {
+      SUCCESS: 'LOAD_DISCS_SUCCESS',
+      EMPTIES: {
+        SUCCESS: 'LOAD_DISCS_EMPTIES_SUCCESS'
+      }
+    },
+    PROFILE: {
+      SUCCESS: 'LOAD_PROFILE_SUCCESS'
+    },
+  },
+  UPDATE: {
+    DISC:{
+      SUCCESS: 'UPDATE_DISC_SUCCESS'
+    },
+  },
+  CREATE: {
+    DISC:{
+      SUCCESS: 'CREATE_DISC_SUCCESS'
+    },
+    COLLECTION:{
+      SUCCESS: 'CREATE_COLLECTION_SUCCESS'
+    },
+    PROFILE: {
+      SUCCESS: 'CREATE_PROFILE_SUCCESS',
+      FAILED: 'FAILED_PROFILE_SUCCESS'
+    },
+  },
+  DELETE: {
+    DISC:{
+      SUCCESS: 'DELETE_DISC_SUCCESS'
+    },
+  },
+  LOGIN: {
+    SUCCESS: 'LOGIN_SUCCESS'
+  },
+  LOGOFF: {
+    SUCCESS: 'LOGOFF_SUCCESS'
+  }
+};
