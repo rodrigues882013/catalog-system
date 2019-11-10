@@ -58,7 +58,7 @@
   },
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server --content-base dist --inline --hot",
-    "build": "export NODE_ENV=dev && webpack",
+    "build": "webpack",
     "test": "jest",
     "test:watch": "npm test -- --watch"
   },
