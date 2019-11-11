@@ -1,19 +1,57 @@
 version: '3.3'
 services:
   db:
-    image: mysql:5.7
+    container_name: mysql
+    image: mysqldb
+    build: ./databases
     restart: always
     environment:
-      MYSQL_DATABASE: 'db'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=pb
     ports:
-      - '3306:3306'
+      - 3306:3306
     expose:
-      - '3306'
-    volumes:
-      - my-db:/var/lib/mysql
+      - 3306
 
-volumes:
-  my-db:
+  redis:
+    hostname: redis
+    image: redis:alpine
+    volumes:
+      - /data/db/redis
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
+
+  backend:
+    hostname: backend
+    build: ./backend
+    image: backend
+    depends_on:
+      - db
+      - redis
+    links:
+      - redis:redis
+      - db:db
+
+  frontend:
+    hostname: frontend
+    build: ./frontend
+    image: frontend
+    depends_on:
+      - backend
+    links:
+      - backend:backend
+
+  nginx:
+    hostname: nginx
+    build: ./nginx
+    image: nginx:develop
+    ports:
+      - 80:80
+    links:
+      - backend
+      - frontend
+
