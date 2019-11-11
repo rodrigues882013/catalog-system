@@ -98,7 +98,8 @@ class DiscService {
         db.create(disc)
             .then( res => {
                 disc.id = res.insertedId;
-                response.status(HttpCode.Created).json(disc)
+                response.status(HttpCode.Created).json(disc);
+                redis.del("Disc#findAll");
                 log.info('Disc created.');
             })
             .catch(err => errorHandler(err, response))
@@ -114,6 +115,7 @@ class DiscService {
                 disc.id = id;
                 response.status(HttpCode.OK).json(disc);
                 redis.del(cacheKey);
+                redis.del("Disc#findAll");
                 log.info('Disc updated.');
             })
             .catch(err => errorHandler(err, response))

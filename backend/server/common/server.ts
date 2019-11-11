@@ -19,7 +19,7 @@ export default class ExpressServer {
     app.use(bodyParser.text({ limit: process.env.REQUEST_LIMIT || '100kb'}));
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(express.static(`${root}/public`));
-    app.use(cors())
+    // app.use(cors()) /-> Somente em dev
   }
 
   router(routes: (app: Application) => void): ExpressServer {

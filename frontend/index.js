@@ -10,7 +10,6 @@ import CollectionDetail from './components/collection/collection-detail';
 import CollectionDiscsPage from './components/collection/collection-discs-page';
 import DiscPage from './components/disc/disc-page';
 import DiscDetail from './components/disc/disc-detail';
-import 'bootstrap';
 import './index.scss';
 
 
